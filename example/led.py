@@ -12,12 +12,19 @@
 
 import FaBoGPIO_PCAL6408
 import time
+import sys
 
 pcal6408 = FaBoGPIO_PCAL6408.PCAL6408()
 
-while True:
-    for i in xrange(8):
-        pcal6408.setDigital(1<<i, High)
-        time.sleep(1)
+try:
+    while True:
+        for i in xrange(8):
+            pcal6408.setDigital(1<<i, 1)
+            time.sleep(1)
+
         pcal6408.setAllClear()
-    time.sleep(1)
+        time.sleep(1)
+
+except KeyboardInterrupt:
+    pcal6408.setAllClear()
+    sys.exit()
